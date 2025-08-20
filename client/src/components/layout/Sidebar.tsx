@@ -264,6 +264,18 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
                   User Management
                 </Button>
               </Link>
+              
+              <Link href="/applications">
+                <Button
+                  variant={isActiveRoute('/applications') ? 'default' : 'ghost'}
+                  className="w-full justify-start text-sm"
+                  onClick={handleLinkClick}
+                  data-testid="link-applications"
+                >
+                  <ALargeSmall className="mr-3 h-4 w-4" />
+                  Applications
+                </Button>
+              </Link>
             </>
           )}
         </div>
