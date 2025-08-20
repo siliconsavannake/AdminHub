@@ -1,0 +1,21 @@
+Using react and the GitHub repo https://github.com/Clarence-BMS/template-proposal as a reference Develop a front end admin and user dashboard that manages the mini applications of a company. 
+Each user has different roles and their dashboard view is different depending on their roles. Only the admin can add roles.
+The first point of access is a login page where the users can log in to the dashboard using their google accounts. The login page should have this design: 
+Accounts that do not have the organization domain cannot access the dashboard
+
+The dashboard menu is a sidebar with a static search bar at the top right that allows the user to search for mini application modals they have access to depending on their roles.
+Below the search bar is also a static company logo, and a static profile icon spaced below the logo that when clicked provides the user with a drop down with a dashboard tab that redirects them to the main page, edit profile tab that redirects them to the edit profile page where they can change their personal details and sign out tab that logs them out of the dashboard.
+
+The main page has Static tabs on the menu for all users apart from the admin. These are:
+My Apps
+Resource Center
+Employee Directory
+Product and Services
+The admin has an additional admin tab which redirects them to the admin page.
+
+Additional tabs on the sidebar are dynamic and changes depending on the role of the user, permissions granted and/or the mini application being accessed
+
+
+The admin has access via the admin page where they can view all mini applications on their page. All The mini apps are arranged using cards on the admin main page. Only the admin has all permissions for different functions on the dashboard. The admin sidebar menu has the following tabs: Roles tab to add edit and delete roles to new and existing users and departments, Permissions tab to add edit and delete permissions for different roles, departments tab to add edit and delete departments, users tab to add edit and delete users, and applications tab to add edit and delete applications
+
+Generate dummy data to test the different functions
