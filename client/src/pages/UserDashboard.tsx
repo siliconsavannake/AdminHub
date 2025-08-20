@@ -31,11 +31,11 @@ export default function UserDashboard() {
       description="Access your assigned mini applications and resources"
     >
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-primary to-blue-700 rounded-xl text-white p-4 sm:p-6 mb-6 sm:mb-8">
+      <div className="bg-gradient-to-r from-primary to-yellow-700 rounded-xl text-black p-4 sm:p-6 mb-6 sm:mb-8">
         <h2 className="text-xl sm:text-2xl font-bold mb-2" data-testid="text-welcome">
           Welcome back, {user?.firstName}!
         </h2>
-        <p className="text-blue-100 text-sm sm:text-base">
+        <p className="text-yellow-100 text-sm sm:text-base">
           You have access to {userApps.length} mini applications. Check your notifications for recent updates.
         </p>
       </div>
@@ -161,8 +161,8 @@ export default function UserDashboard() {
           <CardContent>
             <div className="space-y-3">
               <a href="#" className="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors" data-testid="link-handbook">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <File className="text-blue-600 h-5 w-5" />
+                <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                  <File className="text-yellow-600 h-5 w-5" />
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-900">Employee Handbook</p>

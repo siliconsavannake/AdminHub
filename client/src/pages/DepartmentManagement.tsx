@@ -246,8 +246,8 @@ export default function DepartmentManagement() {
                   {departments.length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Building className="text-blue-600 h-6 w-6" />
+              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <Building className="text-yellow-600 h-6 w-6" />
               </div>
             </div>
           </CardContent>
@@ -324,7 +324,7 @@ export default function DepartmentManagement() {
                       {getManagerName(department.managerId)}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="bg-blue-100 text-blue-800">
+                      <Badge variant="outline" className="bg-yellow-100 text-yellow-800">
                         {getDepartmentUserCount(department.id)} users
                       </Badge>
                     </TableCell>

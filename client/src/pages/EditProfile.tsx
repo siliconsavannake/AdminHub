@@ -117,7 +117,7 @@ export default function EditProfile() {
                 <div className="relative inline-block">
                   <Avatar className="w-32 h-32 mx-auto">
                     <AvatarImage src={user.profileImageUrl || ''} />
-                    <AvatarFallback className="bg-gradient-to-r from-primary to-blue-600 text-white text-4xl font-medium">
+                    <AvatarFallback className="bg-gradient-to-r from-primary to-yellow-600 text-black text-4xl font-medium">
                       {getUserInitials()}
                     </AvatarFallback>
                   </Avatar>

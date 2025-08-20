@@ -14,7 +14,7 @@ export default function ProductsServices() {
       id: 'software',
       name: 'Software Solutions',
       count: 12,
-      color: 'bg-blue-100 text-blue-600',
+      color: 'bg-yellow-100 text-yellow-600',
     },
     {
       id: 'consulting',
@@ -121,7 +121,7 @@ export default function ProductsServices() {
       case 'active':
         return 'bg-green-100 text-green-800';
       case 'beta':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-yellow-100 text-yellow-800';
       case 'coming-soon':
         return 'bg-yellow-100 text-yellow-800';
       default:

@@ -110,7 +110,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
             >
               <Avatar className="w-8 h-8 lg:w-10 lg:h-10">
                 <AvatarImage src={user.profileImageUrl || ''} />
-                <AvatarFallback className="bg-gradient-to-r from-primary to-blue-600 text-white font-medium text-xs lg:text-sm">
+                <AvatarFallback className="bg-gradient-to-r from-primary to-yellow-600 text-black font-medium text-xs lg:text-sm">
                   {userInitials}
                 </AvatarFallback>
               </Avatar>

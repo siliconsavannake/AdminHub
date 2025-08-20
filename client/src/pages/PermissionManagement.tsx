@@ -146,7 +146,7 @@ export default function PermissionManagement() {
   const getActionColor = (action: string) => {
     switch (action.toLowerCase()) {
       case 'read':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-yellow-100 text-yellow-800';
       case 'write':
         return 'bg-green-100 text-green-800';
       case 'delete':
@@ -201,8 +201,8 @@ export default function PermissionManagement() {
                   {permissions.length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Key className="text-blue-600 h-6 w-6" />
+              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <Key className="text-yellow-600 h-6 w-6" />
               </div>
             </div>
           </CardContent>

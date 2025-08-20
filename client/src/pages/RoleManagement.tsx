@@ -135,8 +135,8 @@ export default function RoleManagement() {
                   {roles.length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="text-blue-600 h-6 w-6" />
+              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <Users className="text-yellow-600 h-6 w-6" />
               </div>
             </div>
           </CardContent>

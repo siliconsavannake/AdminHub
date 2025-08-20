@@ -139,7 +139,7 @@ export default function UserManagement() {
       case 'admin':
         return 'bg-red-100 text-red-800';
       case 'manager':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-yellow-100 text-yellow-800';
       case 'user':
         return 'bg-gray-100 text-gray-800';
       default:
@@ -248,8 +248,8 @@ export default function UserManagement() {
                   {users.length}
                 </p>
               </div>
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="text-blue-600 h-5 w-5 sm:h-6 sm:w-6" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <Users className="text-yellow-600 h-5 w-5 sm:h-6 sm:w-6" />
               </div>
             </div>
           </CardContent>
@@ -328,7 +328,7 @@ export default function UserManagement() {
                       <div className="flex items-center space-x-3">
                         <Avatar className="w-10 h-10">
                           <AvatarImage src={user.profileImageUrl || ''} />
-                          <AvatarFallback className="bg-gradient-to-r from-primary to-blue-600 text-white font-medium">
+                          <AvatarFallback className="bg-gradient-to-r from-primary to-yellow-600 text-black font-medium">
                             {getUserInitials(user)}
                           </AvatarFallback>
                         </Avatar>

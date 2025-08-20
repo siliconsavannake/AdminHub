@@ -27,24 +27,24 @@ export default function Login() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary to-blue-700 items-center justify-center">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary to-yellow-700 items-center justify-center">
         <div className="text-center text-white">
           <div className="w-24 h-24 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mx-auto mb-8">
             <Building className="text-4xl text-white h-12 w-12" />
           </div>
           <h1 className="text-4xl font-bold mb-4">CompanyName</h1>
-          <p className="text-xl text-blue-100">Mini Application Management Platform</p>
+          <p className="text-xl text-yellow-100">Mini Application Management Platform</p>
           <div className="mt-8 space-y-4 text-left">
-            <div className="flex items-center text-blue-100">
-              <div className="w-2 h-2 bg-blue-100 rounded-full mr-3"></div>
+            <div className="flex items-center text-yellow-100">
+              <div className="w-2 h-2 bg-yellow-100 rounded-full mr-3"></div>
               <span>Role-based access control</span>
             </div>
-            <div className="flex items-center text-blue-100">
-              <div className="w-2 h-2 bg-blue-100 rounded-full mr-3"></div>
+            <div className="flex items-center text-yellow-100">
+              <div className="w-2 h-2 bg-yellow-100 rounded-full mr-3"></div>
               <span>Secure domain authentication</span>
             </div>
-            <div className="flex items-center text-blue-100">
-              <div className="w-2 h-2 bg-blue-100 rounded-full mr-3"></div>
+            <div className="flex items-center text-yellow-100">
+              <div className="w-2 h-2 bg-yellow-100 rounded-full mr-3"></div>
               <span>Mini application management</span>
             </div>
           </div>

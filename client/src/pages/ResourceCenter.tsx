@@ -14,7 +14,7 @@ export default function ResourceCenter() {
       id: 'policies',
       name: 'Policies & Procedures',
       icon: FileText,
-      color: 'bg-blue-100 text-blue-600',
+      color: 'bg-yellow-100 text-yellow-600',
       count: 12,
     },
     {
@@ -113,7 +113,7 @@ export default function ResourceCenter() {
       case 'PDF':
         return 'bg-red-100 text-red-800';
       case 'Video':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-yellow-100 text-yellow-800';
       case 'Excel':
         return 'bg-green-100 text-green-800';
       default:

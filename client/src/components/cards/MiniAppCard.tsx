@@ -28,7 +28,7 @@ export function MiniAppCard({ app, onConfigure, onViewDetails, onLaunch, showAct
       case 'inactive':
         return 'bg-gray-100 text-gray-800';
       case 'development':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-yellow-100 text-yellow-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -52,7 +52,7 @@ export function MiniAppCard({ app, onConfigure, onViewDetails, onLaunch, showAct
   const getIconGradient = (category: string) => {
     switch (category) {
       case 'HR & Payroll':
-        return 'from-blue-500 to-blue-600';
+        return 'from-yellow-500 to-yellow-600';
       case 'Inventory':
         return 'from-green-500 to-green-600';
       case 'Project Management':
