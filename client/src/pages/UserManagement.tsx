@@ -191,9 +191,9 @@ export default function UserManagement() {
       description="Manage user accounts, roles, and permissions across the organization"
     >
       {/* Header Actions */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
-        <div className="flex flex-col sm:flex-row gap-4 flex-1 max-w-2xl">
-          <div className="relative flex-1">
+      <div className="flex flex-col gap-4 mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+          <div className="relative flex-1 max-w-md">
             <Input
               type="text"
               placeholder="Search users..."
@@ -205,8 +205,15 @@ export default function UserManagement() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           </div>
           
+          <Button onClick={handleAddUser} className="self-start sm:self-auto" data-testid="button-add-user">
+            <Plus className="h-4 w-4 mr-2" />
+            Add User
+          </Button>
+        </div>
+        
+        <div className="flex flex-col sm:flex-row gap-3">
           <Select value={roleFilter} onValueChange={setRoleFilter}>
-            <SelectTrigger className="w-40" data-testid="select-role-filter">
+            <SelectTrigger className="w-full sm:w-40" data-testid="select-role-filter">
               <SelectValue placeholder="All Roles" />
             </SelectTrigger>
             <SelectContent>
@@ -218,7 +225,7 @@ export default function UserManagement() {
           </Select>
           
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-40" data-testid="select-status-filter">
+            <SelectTrigger className="w-full sm:w-40" data-testid="select-status-filter">
               <SelectValue placeholder="All Status" />
             </SelectTrigger>
             <SelectContent>
@@ -228,58 +235,53 @@ export default function UserManagement() {
             </SelectContent>
           </Select>
         </div>
-
-        <Button onClick={handleAddUser} data-testid="button-add-user">
-          <Plus className="h-4 w-4 mr-2" />
-          Add User
-        </Button>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <Card>
-          <CardContent className="p-6">
+          <CardContent className="mobile-padding">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Total Users</p>
-                <p className="text-3xl font-bold text-gray-900" data-testid="stat-total-users">
+                <p className="text-2xl sm:text-3xl font-bold text-gray-900" data-testid="stat-total-users">
                   {users.length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="text-blue-600 h-6 w-6" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Users className="text-blue-600 h-5 w-5 sm:h-6 sm:w-6" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="p-6">
+          <CardContent className="mobile-padding">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Active Users</p>
-                <p className="text-3xl font-bold text-gray-900" data-testid="stat-active-users">
+                <p className="text-2xl sm:text-3xl font-bold text-gray-900" data-testid="stat-active-users">
                   {activeUsers}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <UserCheck className="text-green-600 h-6 w-6" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                <UserCheck className="text-green-600 h-5 w-5 sm:h-6 sm:w-6" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="p-6">
+          <CardContent className="mobile-padding">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Inactive Users</p>
-                <p className="text-3xl font-bold text-gray-900" data-testid="stat-inactive-users">
+                <p className="text-2xl sm:text-3xl font-bold text-gray-900" data-testid="stat-inactive-users">
                   {inactiveUsers}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                <UserX className="text-red-600 h-6 w-6" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                <UserX className="text-red-600 h-5 w-5 sm:h-6 sm:w-6" />
               </div>
             </div>
           </CardContent>
@@ -296,18 +298,19 @@ export default function UserManagement() {
       {/* Users Table */}
       <Card>
         <CardHeader>
-          <CardTitle>All Users</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">All Users</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0 sm:p-6">
           {usersLoading ? (
-            <div className="space-y-4">
+            <div className="space-y-4 p-4 sm:p-0">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="h-16 bg-gray-200 rounded animate-pulse"></div>
               ))}
             </div>
           ) : (
-            <Table>
-              <TableHeader>
+            <div className="table-responsive">
+              <Table>
+                <TableHeader>
                 <TableRow>
                   <TableHead>User</TableHead>
                   <TableHead>Email</TableHead>
@@ -391,7 +394,8 @@ export default function UserManagement() {
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+              </Table>
+            </div>
           )}
 
           {filteredUsers.length === 0 && !usersLoading && (

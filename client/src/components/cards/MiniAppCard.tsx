@@ -66,20 +66,20 @@ export function MiniAppCard({ app, onConfigure, onViewDetails, onLaunch, showAct
 
   return (
     <Card className="hover:shadow-md transition-shadow" data-testid={`card-app-${app.id}`}>
-      <CardContent className="p-6">
+      <CardContent className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
-          <div className={`w-12 h-12 bg-gradient-to-r ${getIconGradient(app.category)} rounded-xl flex items-center justify-center`}>
-            <i className={`${app.icon} text-white text-xl`}></i>
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r ${getIconGradient(app.category)} rounded-xl flex items-center justify-center`}>
+            <i className={`${app.icon} text-white text-lg sm:text-xl`}></i>
           </div>
-          <div className="flex items-center space-x-2">
-            <Badge className={getStatusColor(app.status)} variant="outline">
+          <div className="flex items-center space-x-1 sm:space-x-2">
+            <Badge className={`${getStatusColor(app.status)} text-xs`} variant="outline">
               {getStatusText(app.status)}
             </Badge>
             {showActions && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" data-testid="button-app-menu">
-                    <MoreVertical className="h-4 w-4" />
+                  <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" data-testid="button-app-menu">
+                    <MoreVertical className="h-3 w-3 sm:h-4 sm:w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -101,43 +101,43 @@ export function MiniAppCard({ app, onConfigure, onViewDetails, onLaunch, showAct
           </div>
         </div>
 
-        <h3 className="font-semibold text-gray-900 mb-2" data-testid="text-app-name">
+        <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base" data-testid="text-app-name">
           {app.name}
         </h3>
-        <p className="text-sm text-gray-600 mb-4" data-testid="text-app-description">
+        <p className="text-xs sm:text-sm text-gray-600 mb-4 line-clamp-2" data-testid="text-app-description">
           {app.description}
         </p>
 
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+        <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 text-xs sm:text-sm text-gray-500 mb-4">
           <span className="flex items-center">
-            <Users className="mr-1 h-4 w-4" />
+            <Users className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
             <span data-testid="text-active-users">{app.activeUsers || 0}</span> users
           </span>
           <span className="flex items-center">
-            <Calendar className="mr-1 h-4 w-4" />
-            Updated {new Date(app.updatedAt!).toLocaleDateString()}
+            <Calendar className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">Updated </span>{new Date(app.updatedAt!).toLocaleDateString()}
           </span>
         </div>
 
-        <div className="flex space-x-2">
+        <div className="mobile-stack">
           {onLaunch ? (
             <Button 
-              className="flex-1" 
+              className="flex-1 text-sm" 
               onClick={() => onLaunch(app)} 
               disabled={app.status !== 'active'}
               data-testid="button-launch"
             >
-              Launch Application
+              Launch
             </Button>
           ) : (
             <>
               {onConfigure && (
-                <Button className="flex-1" onClick={() => onConfigure(app)} data-testid="button-configure">
+                <Button className="flex-1 text-sm" onClick={() => onConfigure(app)} data-testid="button-configure">
                   Configure
                 </Button>
               )}
               {onViewDetails && (
-                <Button variant="outline" onClick={() => onViewDetails(app)} data-testid="button-details">
+                <Button variant="outline" className="text-sm" onClick={() => onViewDetails(app)} data-testid="button-details">
                   Details
                 </Button>
               )}

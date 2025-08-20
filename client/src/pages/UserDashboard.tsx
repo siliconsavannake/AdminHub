@@ -31,30 +31,30 @@ export default function UserDashboard() {
       description="Access your assigned mini applications and resources"
     >
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-primary to-blue-700 rounded-xl text-white p-6 mb-8">
-        <h2 className="text-2xl font-bold mb-2" data-testid="text-welcome">
+      <div className="bg-gradient-to-r from-primary to-blue-700 rounded-xl text-white p-4 sm:p-6 mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2" data-testid="text-welcome">
           Welcome back, {user?.firstName}!
         </h2>
-        <p className="text-blue-100">
+        <p className="text-blue-100 text-sm sm:text-base">
           You have access to {userApps.length} mini applications. Check your notifications for recent updates.
         </p>
       </div>
 
       {/* User's Mini Applications */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Your Applications</h2>
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Your Applications</h2>
         {appsLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[...Array(6)].map((_, i) => (
               <Card key={i} className="animate-pulse">
-                <CardContent className="p-6">
-                  <div className="h-32 bg-gray-200 rounded"></div>
+                <CardContent className="p-4 sm:p-6">
+                  <div className="h-24 sm:h-32 bg-gray-200 rounded"></div>
                 </CardContent>
               </Card>
             ))}
           </div>
         ) : userApps.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {userApps.map((app: any) => (
               <MiniAppCard
                 key={app.id}
@@ -66,23 +66,23 @@ export default function UserDashboard() {
             
             {/* Example of restricted app */}
             <Card className="opacity-60" data-testid="card-restricted-app">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-gray-300 rounded-xl flex items-center justify-center">
-                    <i className="fas fa-boxes text-gray-500 text-xl"></i>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-300 rounded-xl flex items-center justify-center">
+                    <i className="fas fa-boxes text-gray-500 text-lg sm:text-xl"></i>
                   </div>
                   <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
                     Restricted
                   </span>
                 </div>
-                <h3 className="font-semibold text-gray-600 mb-2">Inventory System</h3>
-                <p className="text-sm text-gray-500 mb-4">
+                <h3 className="font-semibold text-gray-600 mb-2 text-sm sm:text-base">Inventory System</h3>
+                <p className="text-xs sm:text-sm text-gray-500 mb-4">
                   This application requires additional permissions. Contact your administrator.
                 </p>
                 <div className="text-xs text-gray-400 mb-4">
                   Access level: No permission
                 </div>
-                <button disabled className="w-full px-4 py-2 bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
+                <button disabled className="w-full px-3 py-2 text-sm bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed">
                   Request Access
                 </button>
               </CardContent>
@@ -98,7 +98,7 @@ export default function UserDashboard() {
       </div>
 
       {/* Recent Activity & Resources */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Recent Activity */}
         <Card>
           <CardHeader>

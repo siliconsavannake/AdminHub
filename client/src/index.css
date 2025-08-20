@@ -251,6 +251,54 @@
   .animate-scale-in {
     animation: scaleIn 0.2s ease-out;
   }
+
+  /* Mobile responsive utilities */
+  .mobile-stack {
+    @apply flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2;
+  }
+
+  .mobile-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  .mobile-text {
+    @apply text-sm sm:text-base;
+  }
+
+  .mobile-padding {
+    @apply p-3 sm:p-4 lg:p-6;
+  }
+
+  .mobile-margin {
+    @apply m-3 sm:m-4 lg:m-6;
+  }
+
+  /* Responsive tables */
+  .table-responsive {
+    @apply overflow-x-auto;
+  }
+
+  .table-responsive table {
+    @apply min-w-full;
+  }
+
+  /* Mobile-friendly cards */
+  .card-mobile {
+    @apply transition-all duration-200;
+  }
+
+  .card-mobile:hover {
+    @apply shadow-lg;
+  }
+
+  /* Mobile navigation */
+  .mobile-nav {
+    @apply block lg:hidden;
+  }
+
+  .desktop-nav {
+    @apply hidden lg:block;
+  }
 }
 
 @keyframes fadeIn {
