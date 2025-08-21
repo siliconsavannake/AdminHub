@@ -5,6 +5,7 @@ import { useAppContext } from '@/contexts/AppContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -76,16 +77,19 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
 
       {/* Search Bar */}
       <div className="p-4 lg:p-6 border-b border-gray-200">
-        <div className="relative">
-          <Input
-            type="text"
-            placeholder="Search mini applications..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 text-sm"
-            data-testid="input-search"
-          />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Input
+              type="text"
+              placeholder="Search mini applications..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 text-sm"
+              data-testid="input-search"
+            />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          </div>
+          <ThemeToggle />
         </div>
       </div>
 

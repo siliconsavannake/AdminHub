@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AppProvider } from "@/contexts/AppContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -22,6 +23,7 @@ import RoleManagement from "@/pages/RoleManagement";
 import PermissionManagement from "@/pages/PermissionManagement";
 import DepartmentManagement from "@/pages/DepartmentManagement";
 import UserManagement from "@/pages/UserManagement";
+import ApplicationManagement from "@/pages/ApplicationManagement";
 import EditProfile from "@/pages/EditProfile";
 import NotFound from "@/pages/not-found";
 
@@ -55,7 +57,7 @@ function ProtectedRoute({ component: Component, adminOnly = false }: { component
     return null; // Will redirect in useEffect
   }
 
-  if (adminOnly && user?.role !== 'admin') {
+  if (adminOnly && (user as any)?.role !== 'admin') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
@@ -88,7 +90,7 @@ function Router() {
       ) : (
         <>
           {/* Dashboard routes */}
-          <Route path="/" component={user?.role === 'admin' ? AdminDashboard : UserDashboard} />
+          <Route path="/" component={(user as any)?.role === 'admin' ? AdminDashboard : UserDashboard} />
           <Route path="/admin" component={() => <ProtectedRoute component={AdminDashboard} adminOnly />} />
           
           {/* User routes */}
@@ -103,6 +105,7 @@ function Router() {
           <Route path="/permissions" component={() => <ProtectedRoute component={PermissionManagement} adminOnly />} />
           <Route path="/departments" component={() => <ProtectedRoute component={DepartmentManagement} adminOnly />} />
           <Route path="/user-management" component={() => <ProtectedRoute component={UserManagement} adminOnly />} />
+          <Route path="/applications" component={() => <ProtectedRoute component={ApplicationManagement} adminOnly />} />
         </>
       )}
       
@@ -115,14 +118,16 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AuthProvider>
-          <AppProvider>
-            <Toaster />
-            <Router />
-          </AppProvider>
-        </AuthProvider>
-      </TooltipProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <AuthProvider>
+            <AppProvider>
+              <Toaster />
+              <Router />
+            </AppProvider>
+          </AuthProvider>
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
