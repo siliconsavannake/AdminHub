@@ -1,7 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
 import { 
   insertDepartmentSchema,
   insertRoleSchema,
@@ -13,15 +12,24 @@ import {
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth middleware
-  await setupAuth(app);
 
   // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  // Mock auth route - returns a fake user for demonstration
+  app.get('/api/auth/user', async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
-      const user = await storage.getUser(userId);
-      res.json(user);
+      const mockUser = {
+        id: '1',
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@companyname.com',
+        role: 'admin',
+        profileImageUrl: null,
+        departmentId: null,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      res.json(mockUser);
     } catch (error) {
       console.error("Error fetching user:", error);
       res.status(500).json({ message: "Failed to fetch user" });
@@ -29,7 +37,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // User routes
-  app.get("/api/users", isAuthenticated, async (req, res) => {
+  app.get("/api/users", async (req, res) => {
     try {
       const users = await storage.getAllUsers();
       res.json(users);
@@ -38,7 +46,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/users/search", isAuthenticated, async (req, res) => {
+  app.get("/api/users/search", async (req, res) => {
     try {
       const query = req.query.q as string;
       if (!query) {
@@ -51,7 +59,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/users/:id", isAuthenticated, async (req, res) => {
+  app.put("/api/users/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const user = await storage.updateUser(id, req.body);
@@ -61,7 +69,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/users/:id", isAuthenticated, async (req, res) => {
+  app.delete("/api/users/:id", async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deleteUser(id);
@@ -72,7 +80,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Department routes
-  app.get("/api/departments", isAuthenticated, async (req, res) => {
+  app.get("/api/departments", async (req, res) => {
     try {
       const departments = await storage.getAllDepartments();
       res.json(departments);
@@ -81,7 +89,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/departments", isAuthenticated, async (req, res) => {
+  app.post("/api/departments", async (req, res) => {
     try {
       const validatedData = insertDepartmentSchema.parse(req.body);
       const department = await storage.createDepartment(validatedData);
@@ -94,7 +102,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/departments/:id", isAuthenticated, async (req, res) => {
+  app.put("/api/departments/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const department = await storage.updateDepartment(id, req.body);
@@ -104,7 +112,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/departments/:id", isAuthenticated, async (req, res) => {
+  app.delete("/api/departments/:id", async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deleteDepartment(id);
@@ -115,7 +123,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Role routes
-  app.get("/api/roles", isAuthenticated, async (req, res) => {
+  app.get("/api/roles", async (req, res) => {
     try {
       const roles = await storage.getAllRoles();
       res.json(roles);
@@ -124,7 +132,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/roles", isAuthenticated, async (req, res) => {
+  app.post("/api/roles", async (req, res) => {
     try {
       const validatedData = insertRoleSchema.parse(req.body);
       const role = await storage.createRole(validatedData);
@@ -137,7 +145,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/roles/:id", isAuthenticated, async (req, res) => {
+  app.put("/api/roles/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const role = await storage.updateRole(id, req.body);
@@ -147,7 +155,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/roles/:id", isAuthenticated, async (req, res) => {
+  app.delete("/api/roles/:id", async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deleteRole(id);
@@ -158,7 +166,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Permission routes
-  app.get("/api/permissions", isAuthenticated, async (req, res) => {
+  app.get("/api/permissions", async (req, res) => {
     try {
       const permissions = await storage.getAllPermissions();
       res.json(permissions);
@@ -167,7 +175,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/permissions", isAuthenticated, async (req, res) => {
+  app.post("/api/permissions", async (req, res) => {
     try {
       const validatedData = insertPermissionSchema.parse(req.body);
       const permission = await storage.createPermission(validatedData);
@@ -180,7 +188,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/permissions/:id", isAuthenticated, async (req, res) => {
+  app.put("/api/permissions/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const permission = await storage.updatePermission(id, req.body);
@@ -190,7 +198,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/permissions/:id", isAuthenticated, async (req, res) => {
+  app.delete("/api/permissions/:id", async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deletePermission(id);
@@ -201,7 +209,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Mini Application routes
-  app.get("/api/mini-applications", isAuthenticated, async (req, res) => {
+  app.get("/api/mini-applications", async (req, res) => {
     try {
       const apps = await storage.getAllMiniApplications();
       res.json(apps);
@@ -210,7 +218,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/mini-applications/user/:userId", isAuthenticated, async (req, res) => {
+  app.get("/api/mini-applications/user/:userId", async (req, res) => {
     try {
       const { userId } = req.params;
       const apps = await storage.getMiniApplicationsForUser(userId);
@@ -220,7 +228,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/mini-applications/search", isAuthenticated, async (req, res) => {
+  app.get("/api/mini-applications/search", async (req, res) => {
     try {
       const query = req.query.q as string;
       if (!query) {
@@ -233,7 +241,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/mini-applications", isAuthenticated, async (req, res) => {
+  app.post("/api/mini-applications", async (req, res) => {
     try {
       const validatedData = insertMiniApplicationSchema.parse(req.body);
       const app = await storage.createMiniApplication(validatedData);
@@ -246,7 +254,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/mini-applications/:id", isAuthenticated, async (req, res) => {
+  app.put("/api/mini-applications/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const app = await storage.updateMiniApplication(id, req.body);
@@ -256,7 +264,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/mini-applications/:id", isAuthenticated, async (req, res) => {
+  app.delete("/api/mini-applications/:id", async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deleteMiniApplication(id);
@@ -267,7 +275,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Assignment routes
-  app.post("/api/users/:userId/roles", isAuthenticated, async (req, res) => {
+  app.post("/api/users/:userId/roles", async (req, res) => {
     try {
       const { userId } = req.params;
       const { roleId } = req.body;
@@ -278,7 +286,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/users/:userId/roles/:roleId", isAuthenticated, async (req, res) => {
+  app.delete("/api/users/:userId/roles/:roleId", async (req, res) => {
     try {
       const { userId, roleId } = req.params;
       await storage.removeRoleFromUser(userId, roleId);
@@ -288,7 +296,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/users/:userId/applications", isAuthenticated, async (req, res) => {
+  app.post("/api/users/:userId/applications", async (req, res) => {
     try {
       const { userId } = req.params;
       const { appId, accessLevel } = req.body;
@@ -299,7 +307,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/users/:userId/applications/:appId", isAuthenticated, async (req, res) => {
+  app.delete("/api/users/:userId/applications/:appId", async (req, res) => {
     try {
       const { userId, appId } = req.params;
       await storage.removeAppFromUser(userId, appId);
@@ -310,7 +318,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Analytics routes
-  app.get("/api/analytics/statistics", isAuthenticated, async (req, res) => {
+  app.get("/api/analytics/statistics", async (req, res) => {
     try {
       const stats = await storage.getStatistics();
       res.json(stats);
@@ -319,7 +327,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/analytics/activity", isAuthenticated, async (req, res) => {
+  app.get("/api/analytics/activity", async (req, res) => {
     try {
       const activity = await storage.getRecentActivity();
       res.json(activity);

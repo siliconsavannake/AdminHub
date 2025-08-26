@@ -3,13 +3,8 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthProvider } from "@/contexts/AuthContext";
 import { AppProvider } from "@/contexts/AppContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { useAuth } from "@/hooks/useAuth";
-import { useEffect } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { isUnauthorizedError } from "@/lib/authUtils";
 
 // Pages
 import Login from "@/pages/Login";
@@ -27,87 +22,29 @@ import ApplicationManagement from "@/pages/ApplicationManagement";
 import EditProfile from "@/pages/EditProfile";
 import NotFound from "@/pages/not-found";
 
-function ProtectedRoute({ component: Component, adminOnly = false }: { component: React.ComponentType; adminOnly?: boolean }) {
-  const { user, isLoading, isAuthenticated } = useAuth();
-  const { toast } = useToast();
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      toast({
-        title: "Unauthorized",
-        description: "You are logged out. Logging in again...",
-        variant: "destructive",
-      });
-      setTimeout(() => {
-        window.location.href = "/api/login";
-      }, 500);
-      return;
-    }
-  }, [isAuthenticated, isLoading, toast]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return null; // Will redirect in useEffect
-  }
-
-  if (adminOnly && (user as any)?.role !== 'admin') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
-          <p className="text-gray-600">You don't have permission to access this page.</p>
-        </div>
-      </div>
-    );
-  }
-
-  return <Component />;
-}
-
 function Router() {
-  const { user, isLoading, isAuthenticated } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
   return (
     <Switch>
-      {/* Public routes */}
-      {!isAuthenticated ? (
-        <Route path="/" component={Login} />
-      ) : (
-        <>
-          {/* Dashboard routes */}
-          <Route path="/" component={(user as any)?.role === 'admin' ? AdminDashboard : UserDashboard} />
-          <Route path="/admin" component={() => <ProtectedRoute component={AdminDashboard} adminOnly />} />
-          
-          {/* User routes */}
-          <Route path="/my-apps" component={() => <ProtectedRoute component={MyApps} />} />
-          <Route path="/resource-center" component={() => <ProtectedRoute component={ResourceCenter} />} />
-          <Route path="/employee-directory" component={() => <ProtectedRoute component={EmployeeDirectory} />} />
-          <Route path="/products-services" component={() => <ProtectedRoute component={ProductsServices} />} />
-          <Route path="/profile" component={() => <ProtectedRoute component={EditProfile} />} />
-          
-          {/* Admin routes */}
-          <Route path="/roles" component={() => <ProtectedRoute component={RoleManagement} adminOnly />} />
-          <Route path="/permissions" component={() => <ProtectedRoute component={PermissionManagement} adminOnly />} />
-          <Route path="/departments" component={() => <ProtectedRoute component={DepartmentManagement} adminOnly />} />
-          <Route path="/user-management" component={() => <ProtectedRoute component={UserManagement} adminOnly />} />
-          <Route path="/applications" component={() => <ProtectedRoute component={ApplicationManagement} adminOnly />} />
-        </>
-      )}
+      {/* Login route */}
+      <Route path="/" component={Login} />
+      
+      {/* Dashboard routes */}
+      <Route path="/dashboard" component={AdminDashboard} />
+      <Route path="/admin" component={AdminDashboard} />
+      
+      {/* User routes */}
+      <Route path="/my-apps" component={MyApps} />
+      <Route path="/resource-center" component={ResourceCenter} />
+      <Route path="/employee-directory" component={EmployeeDirectory} />
+      <Route path="/products-services" component={ProductsServices} />
+      <Route path="/profile" component={EditProfile} />
+      
+      {/* Management routes */}
+      <Route path="/roles" component={RoleManagement} />
+      <Route path="/permissions" component={PermissionManagement} />
+      <Route path="/departments" component={DepartmentManagement} />
+      <Route path="/user-management" component={UserManagement} />
+      <Route path="/applications" component={ApplicationManagement} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />
@@ -120,12 +57,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <TooltipProvider>
-          <AuthProvider>
-            <AppProvider>
-              <Toaster />
-              <Router />
-            </AppProvider>
-          </AuthProvider>
+          <AppProvider>
+            <Toaster />
+            <Router />
+          </AppProvider>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

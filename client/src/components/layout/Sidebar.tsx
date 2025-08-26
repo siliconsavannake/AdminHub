@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { useAppContext } from '@/contexts/AppContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -39,18 +38,22 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
   const [location] = useLocation();
-  const { user, isAuthenticated } = useAuthContext();
   const { searchQuery, setSearchQuery } = useAppContext();
 
-  if (!isAuthenticated || !user) {
-    return null;
-  }
+  // Mock user data for demonstration
+  const user = {
+    firstName: 'John',
+    lastName: 'Doe', 
+    email: 'john.doe@companyname.com',
+    profileImageUrl: null,
+    role: 'admin'
+  };
 
   const isAdmin = user.role === 'admin';
   const userInitials = `${user.firstName?.[0] || ''}${user.lastName?.[0] || ''}`.toUpperCase() || 'U';
 
   const handleLogout = () => {
-    window.location.href = '/api/logout';
+    window.location.href = '/';
   };
 
   const isActiveRoute = (route: string) => {
@@ -64,19 +67,19 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
   };
 
   return (
-    <div className={`fixed inset-y-0 left-0 w-80 bg-white shadow-lg border-r border-gray-200 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${
+    <div className={`fixed inset-y-0 left-0 w-80 bg-white dark:bg-gray-900 shadow-lg border-r border-gray-200 dark:border-gray-700 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${
       isOpen ? 'translate-x-0' : '-translate-x-full'
     } lg:translate-x-0`}>
       {/* Mobile Header with Close Button */}
-      <div className="flex justify-between items-center p-4 border-b border-gray-200 lg:hidden">
-        <h2 className="text-lg font-semibold text-gray-900">Menu</h2>
+      <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 lg:hidden">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Menu</h2>
         <Button variant="ghost" size="icon" onClick={onClose} data-testid="button-close-sidebar">
           <X className="h-5 w-5" />
         </Button>
       </div>
 
       {/* Search Bar */}
-      <div className="p-4 lg:p-6 border-b border-gray-200">
+      <div className="p-4 lg:p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
             <Input
@@ -87,20 +90,20 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
               className="pl-10 text-sm"
               data-testid="input-search"
             />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4" />
           </div>
           <ThemeToggle />
         </div>
       </div>
 
       {/* Company Logo & Profile */}
-      <div className="p-4 lg:p-6 border-b border-gray-200">
+      <div className="p-4 lg:p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4 lg:mb-6">
           <div className="flex items-center">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-primary bg-opacity-10 dark:bg-primary dark:bg-opacity-20 rounded-lg flex items-center justify-center">
               <Building className="text-primary h-4 w-4 lg:h-5 lg:w-5" />
             </div>
-            <span className="ml-3 text-base lg:text-lg font-semibold text-gray-900">CompanyName</span>
+            <span className="ml-3 text-base lg:text-lg font-semibold text-gray-900 dark:text-white">CompanyName</span>
           </div>
         </div>
 
@@ -109,7 +112,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="flex items-center w-full p-2 lg:p-3 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-primary justify-start"
+              className="flex items-center w-full p-2 lg:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 focus:ring-2 focus:ring-primary justify-start"
               data-testid="button-profile"
             >
               <Avatar className="w-8 h-8 lg:w-10 lg:h-10">
@@ -119,7 +122,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
                 </AvatarFallback>
               </Avatar>
               <div className="ml-3 flex-1 text-left">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   {user.firstName} {user.lastName}
                 </p>
                 <p className="text-xs text-gray-500 capitalize">{user.role}</p>
@@ -129,7 +132,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
             <DropdownMenuItem asChild>
-              <Link href="/" className="flex items-center" onClick={handleLinkClick} data-testid="link-dashboard">
+              <Link href="/dashboard" className="flex items-center" onClick={handleLinkClick} data-testid="link-dashboard">
                 <Home className="mr-2 h-4 w-4" />
                 Dashboard
               </Link>
