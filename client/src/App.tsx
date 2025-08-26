@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 
 // Pages
 import Login from "@/pages/Login";
+import Register from "@/pages/Register";
 import AdminDashboard from "@/pages/AdminDashboard";
 import UserDashboard from "@/pages/UserDashboard";
 import MyApps from "@/pages/MyApps";
@@ -27,6 +28,7 @@ function Router() {
     <Switch>
       {/* Login route */}
       <Route path="/" component={Login} />
+      <Route path="/register" component={Register} />
       
       {/* Dashboard routes */}
       <Route path="/dashboard" component={AdminDashboard} />

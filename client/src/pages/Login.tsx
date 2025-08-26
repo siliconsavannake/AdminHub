@@ -1,64 +1,133 @@
 import { Button } from '@/components/ui/button';
-import { Building } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { User, Lock, Eye, EyeOff } from 'lucide-react';
 import { useLocation } from 'wouter';
+import { useState } from 'react';
 
 export default function Login() {
   const [, setLocation] = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleContinue = () => {
+  const handleLogin = () => {
     setLocation('/dashboard');
   };
 
+  const handleCreateAccount = () => {
+    setLocation('/register');
+  };
+
   return (
-    <div className="min-h-screen flex">
-      {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary to-yellow-700 dark:from-primary dark:to-yellow-800 items-center justify-center">
-        <div className="text-center text-white dark:text-white">
-          <div className="w-24 h-24 bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 rounded-xl flex items-center justify-center mx-auto mb-8">
-            <Building className="text-4xl text-white h-12 w-12" />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800">
+      <div className="w-full max-w-md">
+        {/* Login Form Card */}
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 mx-4">
+          {/* Avatar Section */}
+          <div className="text-center mb-8">
+            <div className="relative inline-block mb-4">
+              <div className="w-24 h-24 bg-gradient-to-r from-primary to-yellow-600 rounded-full flex items-center justify-center mx-auto shadow-lg">
+                <User className="text-white h-12 w-12" />
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white dark:border-gray-900"></div>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Welcome Back</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Please sign in to your account</p>
           </div>
-          <h1 className="text-4xl font-bold mb-4">CompanyName</h1>
-          <p className="text-xl text-yellow-100 dark:text-yellow-200">Mini Application Management Platform</p>
-          <div className="mt-8 space-y-4 text-left">
-            <div className="flex items-center text-yellow-100 dark:text-yellow-200">
-              <div className="w-2 h-2 bg-yellow-100 dark:bg-yellow-200 rounded-full mr-3"></div>
-              <span>Comprehensive dashboard views</span>
+
+          {/* Login Form */}
+          <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+            {/* Username/Email Field */}
+            <div className="space-y-2">
+              <Label htmlFor="username" className="text-gray-700 dark:text-gray-300 font-medium">Username or Email</Label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username or email"
+                  className="pl-10 h-12 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 rounded-lg"
+                  data-testid="input-username"
+                />
+              </div>
             </div>
-            <div className="flex items-center text-yellow-100 dark:text-yellow-200">
-              <div className="w-2 h-2 bg-yellow-100 dark:bg-yellow-200 rounded-full mr-3"></div>
-              <span>Direct access to applications</span>
+
+            {/* Password Field */}
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-gray-700 dark:text-gray-300 font-medium">Password</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  className="pl-10 pr-10 h-12 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 rounded-lg"
+                  data-testid="input-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  data-testid="button-toggle-password"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
             </div>
-            <div className="flex items-center text-yellow-100 dark:text-yellow-200">
-              <div className="w-2 h-2 bg-yellow-100 dark:bg-yellow-200 rounded-full mr-3"></div>
-              <span>Mini application management</span>
+
+            {/* Login Button */}
+            <Button
+              type="submit"
+              className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105"
+              data-testid="button-login"
+            >
+              Sign In
+            </Button>
+          </form>
+
+          {/* Links Section */}
+          <div className="mt-6 space-y-4">
+            {/* Forgot Password Link */}
+            <div className="text-center">
+              <a
+                href="#"
+                className="text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
+                data-testid="link-forgot-password"
+              >
+                Forgot Username / Password?
+              </a>
+            </div>
+
+            {/* Divider */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">or</span>
+              </div>
+            </div>
+
+            {/* Create Account Link */}
+            <div className="text-center">
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
+                Don't have an account?
+              </p>
+              <button
+                onClick={handleCreateAccount}
+                className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-semibold text-sm transition-colors underline"
+                data-testid="button-create-account"
+              >
+                Create new account
+              </button>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Right Panel - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white dark:bg-gray-900">
-        <div className="max-w-md w-full">
-          <div className="text-center mb-8">
-            <div className="lg:hidden w-16 h-16 bg-primary bg-opacity-10 dark:bg-primary dark:bg-opacity-20 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Building className="text-2xl text-primary h-8 w-8" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome Back</h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Sign in to access your dashboard</p>
-          </div>
-
-          <Button
-            onClick={handleContinue}
-            className="w-full flex items-center justify-center px-4 py-3 rounded-lg shadow-sm focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors bg-primary hover:bg-primary-dark text-primary-foreground font-medium"
-            data-testid="button-continue-dashboard"
-          >
-            <Building className="w-5 h-5 mr-3" />
-            Continue to Dashboard
-          </Button>
-
-          <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-            <p>Click the button above to access your dashboard</p>
-          </div>
+        {/* Footer */}
+        <div className="text-center mt-6">
+          <p className="text-white text-xs opacity-75">
+            © 2025 CompanyName. All rights reserved.
+          </p>
         </div>
       </div>
     </div>
