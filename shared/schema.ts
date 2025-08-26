@@ -8,6 +8,7 @@ import {
   text,
   boolean,
   integer,
+  serial,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -25,13 +26,13 @@ export const sessions = pgTable(
 
 // Users table (required for authentication)
 export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: serial("id").primaryKey(),
   email: varchar("email").unique(),
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   profileImageUrl: varchar("profile_image_url"),
   role: varchar("role").notNull().default("user"),
-  departmentId: varchar("department_id"),
+  departmentId: integer("department_id"),
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -39,10 +40,10 @@ export const users = pgTable("users", {
 
 // Departments table
 export const departments = pgTable("departments", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: serial("id").primaryKey(),
   name: varchar("name").notNull(),
   description: text("description"),
-  managerId: varchar("manager_id"),
+  managerId: integer("manager_id"),
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -50,7 +51,7 @@ export const departments = pgTable("departments", {
 
 // Roles table
 export const roles = pgTable("roles", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: serial("id").primaryKey(),
   name: varchar("name").notNull().unique(),
   description: text("description"),
   isActive: boolean("is_active").notNull().default(true),
@@ -60,7 +61,7 @@ export const roles = pgTable("roles", {
 
 // Permissions table
 export const permissions = pgTable("permissions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: serial("id").primaryKey(),
   name: varchar("name").notNull().unique(),
   description: text("description"),
   resource: varchar("resource").notNull(),
@@ -71,7 +72,7 @@ export const permissions = pgTable("permissions", {
 
 // Mini Applications table
 export const miniApplications = pgTable("mini_applications", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: serial("id").primaryKey(),
   name: varchar("name").notNull(),
   description: text("description"),
   category: varchar("category").notNull(),
@@ -85,25 +86,25 @@ export const miniApplications = pgTable("mini_applications", {
 
 // Role Permissions (many-to-many)
 export const rolePermissions = pgTable("role_permissions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  roleId: varchar("role_id").notNull(),
-  permissionId: varchar("permission_id").notNull(),
+  id: serial("id").primaryKey(),
+  roleId: integer("role_id").notNull(),
+  permissionId: integer("permission_id").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
 // User Roles (many-to-many)
 export const userRoles = pgTable("user_roles", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id").notNull(),
-  roleId: varchar("role_id").notNull(),
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  roleId: integer("role_id").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
 // User Mini Applications (many-to-many)
 export const userMiniApplications = pgTable("user_mini_applications", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id").notNull(),
-  miniApplicationId: varchar("mini_application_id").notNull(),
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  miniApplicationId: integer("mini_application_id").notNull(),
   accessLevel: varchar("access_level").notNull().default("read"),
   createdAt: timestamp("created_at").defaultNow(),
 });
