@@ -1,4 +1,3 @@
-import { useAuthContext } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Bell, Settings, Menu } from 'lucide-react';
@@ -10,10 +9,9 @@ interface HeaderProps {
 }
 
 export function Header({ title, description, onMenuClick }: HeaderProps) {
-  const { user } = useAuthContext();
 
   return (
-    <header className="bg-white border-b border-gray-200 px-3 md:px-6 py-4">
+    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-3 md:px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           {/* Mobile menu button */}
@@ -28,9 +26,9 @@ export function Header({ title, description, onMenuClick }: HeaderProps) {
           </Button>
           
           <div>
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900" data-testid="text-page-title">{title}</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white" data-testid="text-page-title">{title}</h1>
             {description && (
-              <p className="text-sm md:text-base text-gray-600 hidden sm:block" data-testid="text-page-description">{description}</p>
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 hidden sm:block" data-testid="text-page-description">{description}</p>
             )}
           </div>
         </div>

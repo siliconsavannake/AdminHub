@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { isUnauthorizedError } from '@/lib/authUtils';
@@ -30,7 +30,7 @@ const profileSchema = z.object({
 type ProfileFormData = z.infer<typeof profileSchema>;
 
 export default function EditProfile() {
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -66,7 +66,7 @@ export default function EditProfile() {
           variant: 'destructive',
         });
         setTimeout(() => {
-          window.location.href = '/api/login';
+          window.location.href = '/';
         }, 500);
         return;
       }
@@ -131,10 +131,10 @@ export default function EditProfile() {
                   </Button>
                 </div>
                 
-                <h2 className="text-2xl font-bold text-gray-900 mt-4" data-testid="text-user-name">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-4" data-testid="text-user-name">
                   {user.firstName} {user.lastName}
                 </h2>
-                <p className="text-gray-600 capitalize" data-testid="text-user-role">
+                <p className="text-gray-600 dark:text-gray-300 capitalize" data-testid="text-user-role">
                   {user.role}
                 </p>
               </div>

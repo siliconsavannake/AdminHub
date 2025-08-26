@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MiniAppCard } from '@/components/cards/MiniAppCard';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { CheckCircle, FileText, Clock, File, HelpCircle, Calendar } from 'lucide-react';
 
 export default function UserDashboard() {
-  const { user } = useAuthContext();
+  const { user } = useAuth();
 
   const { data: userApps = [], isLoading: appsLoading } = useQuery({
     queryKey: ['/api/mini-applications/user', user?.id],
@@ -42,7 +42,7 @@ export default function UserDashboard() {
 
       {/* User's Mini Applications */}
       <div className="mb-6 sm:mb-8">
-        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Your Applications</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Your Applications</h2>
         {appsLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[...Array(6)].map((_, i) => (
