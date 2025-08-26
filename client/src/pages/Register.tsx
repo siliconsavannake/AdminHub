@@ -16,7 +16,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 dark:from-indigo-700 dark:via-purple-700 dark:to-pink-700 flex items-center justify-center py-8">
+    <div className="min-h-screen flex items-center justify-center py-8" style={{ background: 'linear-gradient(135deg, #EEE60D 0%, #D4CC0A 50%, #C2B909 100%)' }}>
       <div className="w-full max-w-2xl">
         {/* Back Button */}
         <div className="mb-6 ml-4">
@@ -34,7 +34,7 @@ export default function Register() {
         <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 mx-4">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full mb-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ background: 'linear-gradient(135deg, #EEE60D 0%, #D4CC0A 100%)' }}>
               <Users className="text-white h-8 w-8" />
             </div>
             <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">Registration Info</h1>
@@ -55,7 +55,18 @@ export default function Register() {
                     id="firstName"
                     type="text"
                     placeholder="Enter your first name"
-                    className="pl-10 h-12 border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg"
+                    className="pl-10 h-12 border-gray-300 dark:border-gray-600 rounded-lg"
+                    style={{
+                      '--tw-ring-color': '#EEE60D',
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#EEE60D';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(238, 230, 13, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgb(209 213 219)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                     data-testid="input-first-name"
                     required
                   />
@@ -73,7 +84,18 @@ export default function Register() {
                     id="lastName"
                     type="text"
                     placeholder="Enter your last name"
-                    className="pl-10 h-12 border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg"
+                    className="pl-10 h-12 border-gray-300 dark:border-gray-600 rounded-lg"
+                    style={{
+                      '--tw-ring-color': '#EEE60D',
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#EEE60D';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(238, 230, 13, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgb(209 213 219)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                     data-testid="input-last-name"
                     required
                   />
@@ -92,7 +114,18 @@ export default function Register() {
                   id="email"
                   type="email"
                   placeholder="Enter your email address"
-                  className="pl-10 h-12 border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg"
+                  className="pl-10 h-12 border-gray-300 dark:border-gray-600 rounded-lg"
+                  style={{
+                    '--tw-ring-color': '#EEE60D',
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#EEE60D';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(238, 230, 13, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = 'rgb(209 213 219)';
+                    e.target.style.boxShadow = 'none';
+                  }}
                   data-testid="input-email"
                   required
                 />
@@ -109,7 +142,18 @@ export default function Register() {
                   id="phone"
                   type="tel"
                   placeholder="Enter your phone number"
-                  className="h-12 border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg"
+                  className="h-12 border-gray-300 dark:border-gray-600 rounded-lg"
+                  style={{
+                    '--tw-ring-color': '#EEE60D',
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#EEE60D';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(238, 230, 13, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = 'rgb(209 213 219)';
+                    e.target.style.boxShadow = 'none';
+                  }}
                   data-testid="input-phone"
                 />
               </div>
@@ -124,7 +168,18 @@ export default function Register() {
                   <Input
                     id="dateOfBirth"
                     type="date"
-                    className="pl-10 h-12 border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg"
+                    className="pl-10 h-12 border-gray-300 dark:border-gray-600 rounded-lg"
+                    style={{
+                      '--tw-ring-color': '#EEE60D',
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#EEE60D';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(238, 230, 13, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgb(209 213 219)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                     data-testid="input-date-of-birth"
                   />
                 </div>
@@ -158,7 +213,18 @@ export default function Register() {
               <div className="relative">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 z-10" />
                 <Select>
-                  <SelectTrigger className="pl-10 h-12 border-gray-300 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg" data-testid="select-country">
+                  <SelectTrigger className="pl-10 h-12 border-gray-300 dark:border-gray-600 rounded-lg" data-testid="select-country"
+                    style={{
+                      '--tw-ring-color': '#EEE60D',
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#EEE60D';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(238, 230, 13, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgb(209 213 219)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}>
                     <SelectValue placeholder="Select your country" />
                   </SelectTrigger>
                   <SelectContent>
@@ -176,18 +242,18 @@ export default function Register() {
             </div>
 
             {/* Google Account Notice */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <div className="rounded-lg p-4" style={{ backgroundColor: 'rgba(238, 230, 13, 0.1)', borderColor: '#EEE60D', borderWidth: '1px' }}>
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5" style={{ color: '#EEE60D' }} fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300">
+                  <h3 className="text-sm font-medium" style={{ color: '#C2B909' }}>
                     Google Account Integration
                   </h3>
-                  <p className="mt-1 text-sm text-blue-700 dark:text-blue-400">
+                  <p className="mt-1 text-sm" style={{ color: '#D4CC0A' }}>
                     Your account will be created and linked with your Google account for secure authentication.
                   </p>
                 </div>
@@ -207,11 +273,11 @@ export default function Register() {
             {/* Terms */}
             <div className="text-center text-sm text-gray-600 dark:text-gray-400">
               By creating an account, you agree to our{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+              <a href="#" style={{ color: '#EEE60D' }} onMouseEnter={(e) => (e.target as HTMLAnchorElement).style.color = '#D4CC0A'} onMouseLeave={(e) => (e.target as HTMLAnchorElement).style.color = '#EEE60D'}>
                 Terms of Service
               </a>{' '}
               and{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+              <a href="#" style={{ color: '#EEE60D' }} onMouseEnter={(e) => (e.target as HTMLAnchorElement).style.color = '#D4CC0A'} onMouseLeave={(e) => (e.target as HTMLAnchorElement).style.color = '#EEE60D'}>
                 Privacy Policy
               </a>
             </div>
