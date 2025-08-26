@@ -18,7 +18,6 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import { isUnauthorizedError } from '@/lib/authUtils';
 import { User, Camera, Save, Mail, Building } from 'lucide-react';
 
 const profileSchema = z.object({
@@ -59,17 +58,6 @@ export default function EditProfile() {
       queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
     },
     onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: 'Unauthorized',
-          description: 'You are logged out. Logging in again...',
-          variant: 'destructive',
-        });
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 500);
-        return;
-      }
       toast({
         title: 'Error',
         description: 'Failed to update profile',

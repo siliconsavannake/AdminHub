@@ -27,7 +27,6 @@ import { RoleModal } from '@/components/modals/RoleModal';
 import { useAppContext } from '@/contexts/AppContext';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import { isUnauthorizedError } from '@/lib/authUtils';
 import { Search, Plus, Edit, Trash2, Users } from 'lucide-react';
 
 export default function RoleManagement() {
@@ -55,17 +54,6 @@ export default function RoleManagement() {
       setDeleteRoleId(null);
     },
     onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: 'Unauthorized',
-          description: 'You are logged out. Logging in again...',
-          variant: 'destructive',
-        });
-        setTimeout(() => {
-          window.location.href = '/api/login';
-        }, 500);
-        return;
-      }
       toast({
         title: 'Error',
         description: 'Failed to delete role',

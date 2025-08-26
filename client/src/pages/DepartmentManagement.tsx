@@ -51,7 +51,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import { isUnauthorizedError } from '@/lib/authUtils';
 import { Search, Plus, Edit, Trash2, Building, Users, UserCheck } from 'lucide-react';
 
 const departmentSchema = z.object({
@@ -108,17 +107,6 @@ export default function DepartmentManagement() {
       handleCloseModal();
     },
     onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: 'Unauthorized',
-          description: 'You are logged out. Logging in again...',
-          variant: 'destructive',
-        });
-        setTimeout(() => {
-          window.location.href = '/api/login';
-        }, 500);
-        return;
-      }
       toast({
         title: 'Error',
         description: `Failed to ${selectedDepartment ? 'update' : 'create'} department`,

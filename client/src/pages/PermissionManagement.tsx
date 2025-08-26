@@ -40,7 +40,6 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import { isUnauthorizedError } from '@/lib/authUtils';
 import { Search, Plus, Edit, Key, Shield, Lock } from 'lucide-react';
 
 const permissionSchema = z.object({
@@ -91,17 +90,6 @@ export default function PermissionManagement() {
       handleCloseModal();
     },
     onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: 'Unauthorized',
-          description: 'You are logged out. Logging in again...',
-          variant: 'destructive',
-        });
-        setTimeout(() => {
-          window.location.href = '/api/login';
-        }, 500);
-        return;
-      }
       toast({
         title: 'Error',
         description: `Failed to ${selectedPermission ? 'update' : 'create'} permission`,

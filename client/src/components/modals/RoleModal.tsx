@@ -23,7 +23,6 @@ import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAppContext } from '@/contexts/AppContext';
-import { isUnauthorizedError } from '@/lib/authUtils';
 
 const roleSchema = z.object({
   name: z.string().min(1, 'Role name is required'),
@@ -62,17 +61,6 @@ export function RoleModal() {
       handleClose();
     },
     onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: 'Unauthorized',
-          description: 'You are logged out. Logging in again...',
-          variant: 'destructive',
-        });
-        setTimeout(() => {
-          window.location.href = '/api/login';
-        }, 500);
-        return;
-      }
       toast({
         title: 'Error',
         description: `Failed to ${selectedRole ? 'update' : 'create'} role`,

@@ -23,7 +23,6 @@ import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useAppContext } from '@/contexts/AppContext';
-import { isUnauthorizedError } from '@/lib/authUtils';
 
 const userSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -70,17 +69,6 @@ export function AddUserModal() {
       handleClose();
     },
     onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: 'Unauthorized',
-          description: 'You are logged out. Logging in again...',
-          variant: 'destructive',
-        });
-        setTimeout(() => {
-          window.location.href = '/api/login';
-        }, 500);
-        return;
-      }
       toast({
         title: 'Error',
         description: 'Failed to create user',

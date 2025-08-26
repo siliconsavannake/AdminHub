@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { MiniAppCard } from '@/components/cards/MiniAppCard';
 import { Card, CardContent } from '@/components/ui/card';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function MyApps() {
-  const { user } = useAuthContext();
+  const { user } = useAuth();
 
   const { data: userApps = [], isLoading } = useQuery({
     queryKey: ['/api/mini-applications/user', user?.id],
